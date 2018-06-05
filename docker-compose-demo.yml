@@ -5,7 +5,7 @@ services:
 ### MySQL Container #########################################
     mysql:
         build: 
-            context: ./mysql
+            context: https://raw.githubusercontent.com/Natinux/Docker-Compose-Wordpress/master/mysql
         environment:
             - MYSQL_DATABASE=wpdb
             - MYSQL_USER=wpdbuser
@@ -19,7 +19,7 @@ services:
 ### Wordpress Container #########################################
     wordpress:
         build:
-            context: ./wordpress
+            context: https://raw.githubusercontent.com/Natinux/Docker-Compose-Wordpress/master/wordpress
         environment:
             - WORDPRESS_DB_HOST=mysql:3306
             - WORDPRESS_DB_USER=wpdbuser
