@@ -1,0 +1,40 @@
+version: '3.3'
+
+services:
+
+### MySQL Container #########################################
+    mysql:
+        build: 
+            context: ./mysql
+        environment:
+            - MYSQL_DATABASE=wpdb
+            - MYSQL_USER=wpdbuser
+            - MYSQL_PASSWORD=wpdbpass
+            - MYSQL_ROOT_PASSWORD=dbpasswordofroot
+        volumes:
+            - mysql:/var/lib/mysql
+        ports:
+            - "3306:3306"
+
+### Wordpress Container #########################################
+    wordpress:
+        build:
+            context: ./wordpress
+        environment:
+            - WORDPRESS_DB_HOST=mysql:3306
+            - WORDPRESS_DB_USER=wpdbuser
+            - WORDPRESS_DB_PASSWORD=wpdbpass
+        depends_on:
+            - mysql
+        ports:
+            - "8000:80"
+        restart: always
+
+### Volumes Setup #############################################
+
+volumes:
+    mysql:
+        driver: "local"
+
+
+
